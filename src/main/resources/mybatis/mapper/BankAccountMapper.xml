@@ -22,6 +22,9 @@
     </insert>
 
     <update id="lessenBalance">
+        <selectKey resultType="java.math.BigDecimal" keyProperty="balance" order="AFTER">
+            select balance from bank_account where id = #{id}
+        </selectKey>
         update
             bank_account
         set

@@ -34,11 +34,6 @@ public class BankAccountController {
         }
     }
 
-    /*    @PostMapping("/insert")
-        public void insertBankAccount(@RequestBody BankAccount bankAccount) {
-                System.out.println(bankAccount);
-    //            bankAccountService.insertBankAccount(list.get(0));
-        }*/
     @GetMapping("/addMoney")
     public void addMoney(Integer fromId, Integer receiveId, BigDecimal money) {
         bankAccountService.transfer(fromId, receiveId, money);
