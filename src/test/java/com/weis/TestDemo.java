@@ -1,6 +1,5 @@
 package com.weis;
 
-
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,6 +24,7 @@ public class TestDemo {
         arrayList.add("e");
         System.out.println(arrayList);
         Set<String> set = new HashSet<>(arrayList);
+        System.out.println();
         System.out.println(set);
     }
 
@@ -34,9 +34,7 @@ public class TestDemo {
         System.out.println(list);
         Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
-//            String next = iterator.next();
-//            /*if (next.equals("a")) {
-//            }*/
+            String next = iterator.next();
             iterator.remove();
         }
         System.out.println(list);
@@ -50,6 +48,20 @@ public class TestDemo {
             list.add("e");
         }
         System.out.println(list);
+    }
+
+    @Test
+    public void test4(){
+        Map<String,String> map = new HashMap<>();
+        map.put(null,"aaa");
+        System.out.println(map);
+    }
+
+    @Test
+    public void test5(){
+        String str1 = "str";
+        String str2 = "str";
+        System.out.println(str1==str2);
     }
 
 }

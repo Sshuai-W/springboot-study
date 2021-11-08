@@ -19,6 +19,10 @@ public class ATestServiceI implements TestService {
         return "ATestServiceI";
     }
 
+    @Override
+    public String fun2() {
+        return null;
+    }
 
 
 }

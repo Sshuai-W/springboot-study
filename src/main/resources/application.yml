@@ -9,6 +9,11 @@ spring:
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://127.0.0.1:3306/mystudy?characterEncoding=utf-8&useUnicode=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
 
 mybatis:
   # 指定全局配置文件位置

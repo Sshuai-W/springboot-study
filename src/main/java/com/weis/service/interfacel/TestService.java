@@ -9,6 +9,7 @@ package com.weis.service.interfacel;
  */
 public interface TestService {
 
-    public String fun1();
+    String fun1();
 
+    String fun2();
 }

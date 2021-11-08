@@ -31,4 +31,9 @@ public class ServiceTestController {
         return testService.fun1();
     }
 
+    @GetMapping("/test2")
+    public String test2(){
+        return testService.fun2();
+    }
+
 }

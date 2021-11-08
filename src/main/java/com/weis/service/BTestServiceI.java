@@ -1,7 +1,9 @@
 package com.weis.service;
 
 import com.weis.service.interfacel.TestService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @ClassName BTestServiceI
@@ -15,5 +17,13 @@ public class BTestServiceI implements TestService {
     @Override
     public String fun1() {
         return "BTestServiceI";
+    }
+
+    @Override
+    public String fun2() {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> forEntity = restTemplate.getForEntity("http://192.168.30.67:8888/test/test1", String.class);
+        String body = forEntity.getBody();
+        return body;
     }
 }

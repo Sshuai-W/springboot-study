@@ -20,6 +20,9 @@
             now()
                )
     </insert>
+    <insert id="insertAccountList">
+
+    </insert>
 
     <update id="lessenBalance">
         <selectKey resultType="java.math.BigDecimal" keyProperty="balance" order="AFTER">
