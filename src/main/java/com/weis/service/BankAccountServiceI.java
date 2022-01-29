@@ -44,12 +44,14 @@ public class BankAccountServiceI implements BankAccountService {
     }
 
     @Override
+    @Transactional
     public int lessenBalance(Integer id, BigDecimal money) {
         bankAccountMapper.lessenBalance(id, money);
         return 0;
     }
 
     @Override
+    @Transactional
     public int addBalance(Integer id, BigDecimal money) {
         bankAccountMapper.addBalance(id, money);
         return 0;
