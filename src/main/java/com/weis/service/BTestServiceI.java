@@ -22,7 +22,7 @@ public class BTestServiceI implements TestService {
     @Override
     public String fun2() {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> forEntity = restTemplate.getForEntity("http://192.168.30.67:8888/test/test1", String.class);
+        ResponseEntity<String> forEntity = restTemplate.getForEntity("http://localhost:8888/test/test1", String.class);
         String body = forEntity.getBody();
         return body;
     }

@@ -1,5 +1,7 @@
 package com.weis.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -40,11 +42,13 @@ public class BankAccount {
     /**
      * 创建时间
      */
-    private Date creatTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
+    private Date createTime;
 
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GTM+8")
     private Date updateTime;
 
     public BankAccount() {
@@ -56,7 +60,7 @@ public class BankAccount {
         this.userAccount = userAccount;
         this.balance = balance;
         this.deleteFlag = deleteFlag;
-        this.creatTime = creatTime;
+        this.createTime = creatTime;
         this.updateTime = updateTime;
     }
 
@@ -101,11 +105,11 @@ public class BankAccount {
     }
 
     public Date getCreatTime() {
-        return creatTime;
+        return createTime;
     }
 
     public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+        this.createTime = creatTime;
     }
 
     public Date getUpdateTime() {
@@ -124,7 +128,7 @@ public class BankAccount {
                 ", userAccount='" + userAccount + '\'' +
                 ", balance=" + balance +
                 ", deleteFlag=" + deleteFlag +
-                ", creatTime=" + creatTime +
+                ", creatTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
     }

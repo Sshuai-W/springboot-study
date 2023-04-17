@@ -1,7 +1,9 @@
 package com.weis.service;
 
+import com.weis.Enum.ResponseEnum;
 import com.weis.dao.BankAccountMapper;
 import com.weis.entity.BankAccount;
+import com.weis.exception.BankAccountException;
 import com.weis.service.interfacel.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,22 +27,28 @@ public class BankAccountServiceI implements BankAccountService {
 
     @Override
     public BankAccount selectById(Integer id) {
-        return null;
+        return bankAccountMapper.selectById(id);
     }
 
     @Override
     public int insertBankAccount(BankAccount bankAccount) {
-        return bankAccountMapper.insertAccount(bankAccount);
+        bankAccountMapper.insertAccount(bankAccount);
+        return bankAccount.getId();
     }
 
     @Override
     public int insertBankAccount(List<BankAccount> bankAccounts) {
-        return 0;
+        return bankAccountMapper.insertAccountList(bankAccounts);
     }
 
     @Override
     public int deleteBankAccountById(Integer id) {
         return 0;
+    }
+
+    @Override
+    public int deleteBankAccountByIds(List<Integer> ids) {
+        return bankAccountMapper.deleteBankAccountByIds(ids);
     }
 
     @Override
@@ -53,17 +61,26 @@ public class BankAccountServiceI implements BankAccountService {
     @Override
     @Transactional
     public int addBalance(Integer id, BigDecimal money) {
-        bankAccountMapper.addBalance(id, money);
-        return 0;
+        int res = bankAccountMapper.addBalance(id, money);
+        return res;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void transfer(Integer formId, Integer receiveId, BigDecimal money) {
-        lessenBalance(formId,money);
-        if (money.equals(new BigDecimal(20))){
-            throw new RuntimeException("转账出错");
+        BankAccount bankAccount = bankAccountMapper.selectById(formId);
+        if (bankAccount.getBalance().compareTo(money) < 0) {
+            throw new BankAccountException(ResponseEnum.BALANCE_NOT_ENOUGH, "余额不足");
         }
-        addBalance(receiveId,money);
+        lessenBalance(formId, money);
+        addBalance(receiveId, money);
     }
+
+    @Override
+    public int updateBankAccount(List<BankAccount> bankAccountList) {
+        int res = bankAccountMapper.updateAccounts(bankAccountList);
+        return res;
+    }
+
+
 }

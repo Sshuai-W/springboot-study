@@ -5,47 +5,96 @@
     <insert id="insertAccount" parameterType="com.weis.entity.BankAccount">
         insert into
         bank_account(
-            user_name,
-            user_account,
-            balance,
-            delete_flag,
-            creat_time,
-            update_time)
+        user_name,
+        user_account,
+        balance,
+        delete_flag,
+        create_time,
+        update_time)
         values (
-            #{userName},
-            #{userAccount},
-            #{balance},
-            #{deleteFlag},
-            now(),
-            now()
-               )
-        <selectKey keyProperty="id" order="AFTER" resultType="int">
-            SELECT LAST_INSERT_ID() AS ID
+        #{userName},
+        #{userAccount},
+        #{balance},
+        #{deleteFlag},
+        now(),
+        now()
+        )
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
 
-    <insert id="insertAccountList">
-
+    <insert id="insertAccountList" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        bank_account(
+        user_name,
+        user_account,
+        balance,
+        delete_flag,
+        create_time,
+        update_time
+        )
+        values
+        <foreach collection="bankAccountList" item="bankAccount" separator=",">
+            (
+            #{bankAccount.userName},
+            #{bankAccount.userAccount},
+            #{bankAccount.balance},
+            #{bankAccount.deleteFlag},
+            now(),
+            now()
+            )
+        </foreach>
     </insert>
+
+    <update id="deleteBankAccountByIds" parameterType="list">
+        update
+        bank_account
+        set delete_flag = 1,
+            update_time = now()
+        where id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and delete_flag = 0
+    </update>
 
     <update id="lessenBalance">
         <selectKey resultType="java.math.BigDecimal" keyProperty="balance" order="AFTER">
             select balance from bank_account where id = #{id}
         </selectKey>
         update
-            bank_account
+        bank_account
         set
-            balance = (balance-#{money})
+        balance = (balance-#{money})
         where
-            id = #{id}
+        id = #{id}
     </update>
 
     <update id="addBalance">
         update
             bank_account
-        set
-            balance = (balance+#{money})
-        where
-            id = #{id}
+        set balance = (balance + #{money})
+        where id = #{id}
+    </update>
+
+    <select id="selectById" resultType="com.weis.entity.BankAccount">
+        select id,user_name,user_account,balance,delete_flag,create_time,update_time
+        from bank_account
+        where id = #{id}
+    </select>
+
+    <update id="updateAccounts">
+        <foreach collection="list" item="bankAccount" separator=";">
+            update
+                bank_account
+            set
+                user_name = #{bankAccount.userName},
+                user_account = #{bankAccount.userAccount},
+                balance = #{bankAccount.balance},
+                update_time = now()
+            where
+                id = #{bankAccount.id}
+        </foreach>
     </update>
 </mapper>

@@ -22,9 +22,13 @@ public interface BankAccountService {
 
     int deleteBankAccountById(Integer id);
 
+    int deleteBankAccountByIds(List<Integer> ids);
+
     int lessenBalance(Integer id, BigDecimal money);
 
     int addBalance(Integer id, BigDecimal money);
 
     void transfer(Integer formId, Integer receiveId, BigDecimal money);
+
+    int updateBankAccount(List<BankAccount> bankAccountList);
 }

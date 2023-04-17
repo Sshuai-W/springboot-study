@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weis.dao.AccommodationStatisticsMapper">
+
+    <select id="getAllMonthlyBills" resultType="com.weis.dto.MonthlyBillDto">
+        select guest.gstname as guestName,
+               accommodation_statistics.mom as month,
+               SUM(accommodation_statistics.nights) as nights
+        from guest
+        join accommodation_statistics
+        on guest.profileid = accommodation_statistics.profileid
+        group by guest.gstname,accommodation_statistics.mom
+        order by nights desc
+    </select>
+
+</mapper>

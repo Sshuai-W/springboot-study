@@ -1,6 +1,6 @@
 package com.weis.response;
 
-import com.weis.common.RequestEnum;
+import com.weis.Enum.ResponseEnum;
 
 /**
  * @ClassName HttpResultResponse
@@ -50,28 +50,28 @@ public class HttpResultResponse<T> {
         this.data = data;
     }
 
-    private static <T> HttpResultResponse<T> getInstance(RequestEnum requestEnum, T data) {
-        return new HttpResultResponse<T>(requestEnum.getCode(), requestEnum.getMessage(), data);
+    private static <T> HttpResultResponse<T> getInstance(ResponseEnum ResponseEnum, T data) {
+        return new HttpResultResponse<T>(ResponseEnum.getCode(), ResponseEnum.getMessage(), data);
     }
 
     public static <T> HttpResultResponse<T> success(){
-        return getInstance(RequestEnum.REQUEST_SUCCESS,null);
+        return getInstance(ResponseEnum.REQUEST_SUCCESS,null);
     }
 
     public static <T> HttpResultResponse<T> success(T data) {
-        return getInstance(RequestEnum.REQUEST_SUCCESS, data);
+        return getInstance(ResponseEnum.REQUEST_SUCCESS, data);
     }
 
     public static <T> HttpResultResponse<T> error(){
-        return getInstance(RequestEnum.REQUEST_ERROR_DEFAULT,null);
+        return getInstance(ResponseEnum.REQUEST_ERROR_DEFAULT,null);
     }
 
     public static <T> HttpResultResponse<T> error(T data){
-        return getInstance(RequestEnum.REQUEST_ERROR_DEFAULT,data);
+        return getInstance(ResponseEnum.REQUEST_ERROR_DEFAULT,data);
     }
 
-    public static <T> HttpResultResponse<T> error(RequestEnum requestEnum,T data){
-        return getInstance(requestEnum,data);
+    public static <T> HttpResultResponse<T> error(ResponseEnum ResponseEnum,T data){
+        return getInstance(ResponseEnum,data);
     }
 
 
